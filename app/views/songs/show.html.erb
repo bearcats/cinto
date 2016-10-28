@@ -1,0 +1,28 @@
+<h3>Others who added <%= @song.artist + " - "+ @song.title%></h3>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Times Added</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @song.users.group(:id).select("users.*, count(users.id)").each do |f| %>
+			<tr>
+				<td><a href="/users/<%= f.id%>"> <%=f.first_name%></a></td>
+				<td><%=f.count%></td>
+        <li>
+            <% if @songs %>
+              <% @songs.each do |t| %>
+                <a href="/title/<%= t.title %>"><%= t.title %></a>
+              <% end %>
+            <% else %>
+              No songs
+            <% end %>
+            </li>
+			</tr>
+		<% end %>
+	</tbody>
+
+</table>
